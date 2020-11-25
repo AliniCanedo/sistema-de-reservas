@@ -8,6 +8,10 @@ const app = express();
 
 app.use(express.json());
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cors());// libera acesso para todos domínios. 
 // preencher com os parâmetros, restringe aos especificados
 
