@@ -1,0 +1,29 @@
+<script>
+    async function getContent() {
+        try {
+            const response = await fetch('http://localhost:3001/users')
+            console.log(response)
+            const data = await response.json()
+            show(data)
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    getContent()
+
+    function show(users) {
+        let output = ''
+        for (let user of users) {
+            output += `<li>${user.name}, ${user.endereco.rua} </li>`
+        }
+        document.querySelector('main').innerHTML = output
+    }
+
+</script>
+
+<body>
+    <main>
+
+    </main>
+</body>
