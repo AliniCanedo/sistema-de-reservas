@@ -15,7 +15,7 @@
     function show(users) {
         let output = ''
         for (let user of users) {
-            output += `<li>${user.name}, ${user.endereco.rua} | <a href="">Editar</a> | <a href=""onClick="removeLinha()">Deletar</a> </li>`
+            output += `<li>${user.name}, ${user.endereco.rua} | <a href="">Editar</a> | <a href="" onClick="removeLinha(this)">Deletar</a> </li>`
         }
         document.querySelector('main').innerHTML = output
     }
