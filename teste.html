@@ -15,20 +15,20 @@
     function show(users) {
         let output = ''
         for (let user of users) {
-            output += `<li>${user.name}, ${user.endereco.rua} | <a href="">Editar</a> | <a href="" onClick="removeLinha(this)">Deletar</a> </li>`
+            output += `<li>${user.name}, ${user.endereco.rua} | <a href="">Editar</a> | <a href="javascript:void();" onClick="removeLinha()">Deletar</a> </li>`
         }
         document.querySelector('main').innerHTML = output
     }
 
     function cadastrar() {
+
         alert("Você clicou no botão!");
     }
-    // funcao remove uma linha da tabela
-    function removeLinha(user) {
-        var i = user.parentNode.parentNode.rowIndex;
-        console.log(user)
-        document.querySelector('li').deleteRow(i);
-    }   
+    function removeLinha() {
+        var myobj = document.querySelector("li");
+        myobj.remove();
+    }
+
 </script>
 
 <body>
