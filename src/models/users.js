@@ -6,16 +6,57 @@ const UsersSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    description:{
+    rg: {
         type: String,
         required: true,
     },
-    url: {
+    cpf: {
         type: String,
         required: true,
     },
+    username: {
+        type: String
+    },
+    senha: {
+        type: String
+    },
+
     endereco: {
-        rua: [{
+        logradouro: [{
+            type: String
+        }],
+        numero: [{
+            type: String
+        }],
+        cidade: [{
+            type: String
+        }],
+        cep: [{
+            type: String
+        }],
+        uf: [{
+            type: String
+        }],
+    },
+    cartao: {
+        numero: [{
+            type: String
+        }],
+        data: [{
+            type: String
+        }],
+        cvv: [{
+            type: String
+        }]
+    },
+    reservas: {
+        data: [{
+            type: String
+        }],
+        horario: [{
+            type: String
+        }],
+        numerodepessoas: [{
             type: String
         }]
     }
@@ -23,4 +64,4 @@ const UsersSchema = new mongoose.Schema({
 
 UsersSchema.plugin(mongoosePaginate);
 
-mongoose.model('users', UsersSchema);
+mongoose.model('Users', UsersSchema);
