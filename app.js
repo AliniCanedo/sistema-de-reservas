@@ -2,6 +2,8 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
@@ -16,6 +18,14 @@ function authenticationMiddleware(req, res, next) {
 }
 
 const app = express();
+app.use(express.json());
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(cors());// libera acesso para todos domínios. 
+// preencher com os parâmetros, restringe aos especificados
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +46,12 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+
+//iniciando o db
+mongoose.connect(
+  'mongodb://localhost:27017/projeto',
+  { useNewUrlParser: true }
+);
 
 app.use('/login', loginRouter);
 app.use('/users', authenticationMiddleware, usersRouter);
