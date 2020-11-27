@@ -1,54 +1,51 @@
-const bcrypt = require('bcryptjs');
-const LocalStrategy = require('passport-local').Strategy;
-const users = [{
-    _id: 1,
-    username: "adm",
-    password: "$2a$06$HT.EmXYUUhNo3UQMl9APmeC0SwoGsx7FtMoAWdzGicZJ4wR1J8alW",
-    email: "contato@luiztools.com.br"
-}];
+const bcrypt = require('bcryptjs')  
+const LocalStrategy = require('passport-local').Strategy
 
-module.exports = function (passport) {
-
-    function findUser(username) {
-        return users.find(user => user.username === username);
+module.exports = function(passport){
+   
+    //configuraremos o passport aqui
+    function findUser(username, callback){
+        global.db.collection("users").findOne({"username": username}, function(err, doc){
+            callback(err, doc);
+        })
     }
 
-    function findUserById(id) {
-        return users.find(user => user._id === id);
+    function findUserById(id, callback){
+        const objectId = require("mongodb").ObjectId;
+        global.db.collection("users").findOne({"_id": objectId(id)}, function(err, doc){
+            callback(err, doc);
+        })
     }
 
-    passport.serializeUser((user, done) => {
-        done(null, user._id);
+    passport.serializeUser(function(user, done){
+        done(null,user._id);
     });
 
-    passport.deserializeUser((id, done) => {
-        try {
-            const user = findUserById(id);
-            done(null, user);
-        } catch (err) {
-            done(err, null);
-        }
+    passport.deserializeUser(function(id, done){
+        findUserById(id, function(err,user){
+            done(err, user);
+        });
     });
 
-    passport.use(new LocalStrategy({
-        usernameField: 'username',
-        passwordField: 'password'
-    },
+    passport.use(new LocalStrategy( { 
+            usernameField: 'username',
+            passwordField: 'password'
+        },
         (username, password, done) => {
-            try {
-                const user = findUser(username);
+            findUser(username, (err, user) => {
+                if (err) { return done(err) }
 
                 // usuário inexistente
                 if (!user) { return done(null, false) }
 
                 // comparando as senhas
-                const isValid = bcrypt.compareSync(password, user.password);
-                if (!isValid) return done(null, false)
-                
-                return done(null, user)
-            } catch (err) {
-                done(err, false);
-            }
+                bcrypt.compare(password, user.password, (err, isValid) => {
+                    if (err) { return done(err) }
+                    if (!isValid) { return done(null, false) }
+                    return done(null, user)
+                })
+            })
         }
     ));
+
 }

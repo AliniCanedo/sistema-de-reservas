@@ -1,38 +1,29 @@
-const mongoClient = require("mongodb").MongoClient;
-mongoClient.connect("mongodb://localhost", { useUnifiedTopology: true })
-            .then(conn => global.conn = conn.db("projeto"))
-            .catch(err => console.log(err))
+const bcrypt = require('bcryptjs');
 
-const TAMANHO_PAGINA = 5; 
-
-function findAll(pagina){ 
-    const tamanhoSkip = TAMANHO_PAGINA * (pagina - 1); 
-    return global.conn.collection("customers")
-                        .find({}).
-                        skip(tamanhoSkip)
-                        .limit(TAMANHO_PAGINA)
-                        .toArray(); 
+function createUser(username, password, email, profile, callback){
+    const cryptoPassword = bcrypt.hashSync(password, 10);
+    global.db.collection("users").insertOne({username, password: cryptoPassword, email, profile}, callback);
 }
 
-const ObjectId = require("mongodb").ObjectId;
-function findOne(id, callback){  
-    global.conn.collection("customers").find(new ObjectId(id)).toArray(callback);
+function resetPassword(email, callback){
+    const utils = require('./utils');
+    const newPassword = utils.generatePassword();
+    const cryptoPassword = bcrypt.hashSync(newPassword, 10);
+    global.db.collection("users").updateOne({email: email}, { $set: {password: cryptoPassword }}, (err, res) => {
+        callback(err, res, newPassword);
+    });
 }
 
-function insert(customer, callback){
-    global.conn.collection("customers").insertOne(customer, callback);
+function countAll(callback){
+    global.db.collection("users").countDocuments(callback);
 }
 
-function update(id, customer, callback){
-    global.conn.collection("customers").updateOne({_id: new ObjectId(id)}, {$set: customer}, callback);
+const TAMANHO_PAGINA = 5;
+function findAllUsers(pagina, callback){
+    const totalSkip = (pagina-1) * TAMANHO_PAGINA;
+    global.db.collection("users").find().skip(totalSkip).limit(TAMANHO_PAGINA).toArray(callback);
 }
 
-function deleteOne(id, callback){
-    global.conn.collection("customers").deleteOne({_id: new ObjectId(id)}, callback);
+module.exports = { 
+    createUser, resetPassword, findAllUsers, TAMANHO_PAGINA, countAll 
 }
-//callback deve considerar error e count
-function countAll(){  
-    return global.conn.collection("customers").countDocuments();
-}
-
-module.exports = { findAll, insert, findOne, update, deleteOne, countAll, TAMANHO_PAGINA }
