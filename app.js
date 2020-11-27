@@ -8,6 +8,10 @@ const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 
+var favicon = require('serve-favicon');
+var bodyParser = require('body-parser');
+
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
@@ -48,10 +52,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //iniciando o db
-mongoose.connect(
+/* mongoose.connect(
   'mongodb://localhost:27017/projeto',
   { useNewUrlParser: true }
-);
+); */
 
 app.use('/login', loginRouter);
 app.use('/users', authenticationMiddleware, usersRouter);
