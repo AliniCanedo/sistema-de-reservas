@@ -1,21 +1,33 @@
 <!doctype html>
 <html>
-  <body>
-    <h1>Signup</h1>
+
+<head>
+  <link rel='stylesheet' href='/css/sigup.css' />
+</head>
+
+<body>
+  <div id="sigup">
+    <h1>Signup</h1><br>
     <form action="/users/signup" method="POST">
-      Username: <input name="username" type="text" /><br />
-      Password: <input name="password" type="password" /><br />
-      E-mail: <input name="email" type="text" /><br />
-      Perfil: <select name="profile">
+      <label for="username"> Username:</label>
+      <input id="username" name="username" type="text" /><br /><br>
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password" /><br /><br>
+      <label for="email"> E-mail:</label>
+      <input id="email" name="email" type="text" /><br /><br>
+     
+     Perfil: 
+      <select id="profile" name="profile">
         <option value="1">Usuário</option>
         <option value="2">Administrador</option>
-      </select><br />
-      <input type="submit" value="Save" />
+      </select><br /><br>
+      <input type="submit" value="Save" id="inputsigup" />
     </form>
     <% if(message) { %>
-      <p>
-        <label style="color:Red"><%= message %></label>
-      </p>
+    <p>
+      <label style="color:Red"><%= message %></label>
+    </p>
     <%}%>
+  </div>
   </body>
 </html>

@@ -1,27 +1,36 @@
 <!doctype html>
 <html>
-  <head>
-    <link rel='stylesheet' href='/css/style.css' />
-  </head>
-  <body>
-    <a href="#">Pagina Inicial</a>
+
+<head>
+  <link rel='stylesheet' href='/css/style.css' />
+</head>
+
+<body>
+  <div id="loginAdm">
+
     <h1>Login</h1>
+    <br>
     <form action="/login" method="POST">
-      <input name="username" type="text" /><br />
-      <input name="password" type="password" /><br />
+      <label for="username">Username</label>
+      <input name="username" id="username" type="text" placeholder="Digite seu username" /><br />
+      <label for="password">Senha</label>
+      <input name="password" id="password" type="password" placeholder="Digite sua senha" /><br />
       <input type="submit" value="Login" />
     </form>
     <% if(message) { %>
-      <p>
-          <% if(error) { %>
-            <label style="color:Red"><%= message %></label>
-          <%} else {%>
-            <label style="color:Green"><%= message %></label>
-          <%}%>
+    <p>
+      <% if(error) { %>
+      <label style="color:Red"><%= message %></label>
+      <%} else {%>
+      <label style="color:Green"><%= message %></label>
+      <%}%>
       </p>
     <%}%>
     <p>
       <a href="/users/forgot">Esqueceu sua senha?</a> | <a href="/users/signup">Não possui cadastro?</a>
     </p>
-  </body>
+
+  </div>
+</body>
+
 </html>

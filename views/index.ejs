@@ -2,16 +2,48 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/css/tabSemanaAtual.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <form action="/logoff" method="POST">
+      <input type="submit" value="Logoff" id="logoff"/>
+    </form>
     <p><%= qtd %> usuários cadastrados!</p>
+    <br>
+    <div class="divCrud">
     <table>
-      <tr style="background-color:Gray">
-        <td>Nome</td><td>Ações</td>
-      </tr>
+      <thead>
+        <tr>
+          <td class="tabela">Nome</td>
+          <td class="tabela">Mesa</td>
+          <td class="tabela">Data</td>
+          <td class="tabela">Horario</td>
+          <td class="tabela">Ação</td>
+        </tr>
+      </thead>
+  
+   
+      <tbody >
+        <% 
+        if(docs) {
+          for(var i=0; i < docs.length; i++){
+            %>
+            <tr>
+              <td><a href="/edit/<%= docs[i]._id %>"><%= docs[i].username %></a></td>
+              <td>
+                  <form action="/delete/<%= docs[i]._id %>" method="POST">
+                    <input type="submit" value="x" id="excluir"/>
+                  </form>
+              </td>
+            </tr>
+            <%
+          }
+        }
+      %>
+      </tbody>
+    </table>
+<!--     <table>
+
       <% 
         if(docs) {
           for(var i=0; i < docs.length; i++){
@@ -20,7 +52,7 @@
               <td><a href="/edit/<%= docs[i]._id %>"><%= docs[i].username %></a></td>
               <td>
                   <form action="/delete/<%= docs[i]._id %>" method="POST">
-                    <input type="submit" value="Excluir" />
+                    <input type="submit" value="x" />
                   </form>
               </td>
             </tr>
@@ -47,12 +79,10 @@
           %>
         </td>
       </tr>
-    </table>
+    </table> -->
+  </div>
     <p>
-      <a href="/users/signup">Cadastrar</a>
-      <form action="/logoff" method="POST">
-        <input type="submit" value="Logoff" />
-      </form>
+      <a href="/users/signup" id="cadastrar">Cadastrar</a>
     </p>
     <p>
       <%
