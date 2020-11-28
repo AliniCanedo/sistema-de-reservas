@@ -42,7 +42,7 @@
       %>
       </tbody>
     </table>
-<!--     <table>
+    <table>
 
       <% 
         if(docs) {
@@ -52,7 +52,7 @@
               <td><a href="/edit/<%= docs[i]._id %>"><%= docs[i].username %></a></td>
               <td>
                   <form action="/delete/<%= docs[i]._id %>" method="POST">
-                    <input type="submit" value="x" />
+                    <input type="submit" value="x" id="excluir"/>
                   </form>
               </td>
             </tr>
@@ -79,7 +79,7 @@
           %>
         </td>
       </tr>
-    </table> -->
+    </table>
   </div>
     <p>
       <a href="/users/signup" id="cadastrar">Cadastrar</a>

@@ -13,7 +13,7 @@ body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   }
-  #sigup {
+/*   #sigup {
     width: 500px;
     margin-left: 410px;
     padding-top: 10px;
@@ -22,7 +22,7 @@ body {
     padding: 25px;
     position: absolute;
   }
-
+ */
   #inputsigup{
     background: #ce9654;
     padding: 13px 54px;
@@ -45,4 +45,41 @@ body {
     display: block;
     outline: none;
     width: 100%;
+}
+
+/* form */
+#loginUser {
+  width: 500px;
+  margin-left: 100px;
+  margin-right: auto;
+  background-color: #FFF;
+  border-radius: 10px;
+  padding: 25px;
+  position: absolute;
+}
+#loginAdm {
+  width: 500px;
+  margin-left: 100px;
+  margin-right: 300px;
+  margin-bottom: 10px;
+  background-color: #FFF;
+  border-radius: 10px;
+  margin-top: 90px;
+  padding: 25px;
+  position: absolute;
+}
+#cartao{
+  width: 400px;
+  margin-left: 750px;
+  margin-right: 300px;
+  background-color: #FFF;
+  border-radius: 10px;
+  padding: 25px;
+  position: relative;
+  font-family: Helvetica, sans-serif;
+  color: #323232;
+}
+
+h2 {
+  color: #fff;
 }
