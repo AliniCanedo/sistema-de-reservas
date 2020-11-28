@@ -1,0 +1,11 @@
+body {
+  background-image: url(https://image.freepik.com/free-photo/_1339-99704.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}

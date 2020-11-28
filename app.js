@@ -22,6 +22,7 @@ var loginRouter = require('./routes/login');
 var reportsRouter = require('./routes/reports');
 
 var app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 
 //autenticação
 require('./auth')(passport);
