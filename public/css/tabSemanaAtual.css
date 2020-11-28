@@ -48,6 +48,10 @@ td {
   font-size: 20px;
 }
 
+#editar {
+  color: rgb(78, 34, 238);
+}
+
 #cadastrar{
   background: #ce9654;
   padding: 13px 54px;

@@ -33,6 +33,9 @@ function findAllUsers(pagina, callback) {
     global.db.collection("users").find().skip(totalSkip).limit(TAMANHO_PAGINA).toArray(callback);
 }
 
+function deleteOne(id, callback){
+    global.conn.collection("users").deleteOne({_id: new ObjectId(id)}, callback);
+}
 module.exports = {
-    createUser, resetPassword, findAllUsers, TAMANHO_PAGINA, countAll
+    createUser, resetPassword, findAllUsers, TAMANHO_PAGINA, countAll,deleteOne
 }
